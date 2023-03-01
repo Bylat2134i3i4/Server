@@ -94,9 +94,26 @@ if ($_SERVER['REQUEST_METHOD'] === "GET"){
 
     $query = $base_connect->query("UPDATE folder SET amount_card='$new_amount' WHERE id_folder='$data->id_folder'");
   }
-  // if ($Type_Comand === "change_icon"){
-  //   $query = $base_connect->query("UPDATE persons")
-  // }
+  if ($Type_Comand === "change_icon"){//изменение картинки профиля пользователя
+    // запрос: http://cerver/index.php?change_icon
+    $query = $base_connect->query("UPDATE users SET icon='$data->icon' WHERE id='$data->id'");
+  }
+  if ($Type_Comand === "change_login"){//изменение логина пользователя
+    // запрос: http://cerver/index.php?change_login
+    $query = $base_connect->query("UPDATE users SET login='$data->login' WHERE id='$data->id'");
+  }
+  if ($Type_Comand === "change_password"){ //изменение пароля пользователя
+    // запрос: http://cerver/index.php?change_password
+    $query = $base_connect->query("UPDATE users SET password='$data->password' WHERE id='$data->id'");
+  }
+  if ($Type_Comand === "change_card_front"){//изменение передней части карточки
+    // запрос: http://cerver/index.php?change_card_front
+    $query = $base_connect->query("UPDATE card SET front='$data->front' WHERE id_card='$data->id'");
+  }
+  if ($Type_Comand === "change_card_back"){//изменение задней части карточки
+    // запрос: http://cerver/index.php?change_card_back
+    $query = $base_connect->query("UPDATE card SET back='$data->back' WHERE id_card='$data->id'");
+  }
 }
 
 $base_connect->close();
