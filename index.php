@@ -71,13 +71,17 @@ if ($_SERVER['REQUEST_METHOD'] === "GET"){
     $query = $base_connect->query("SELECT MAX(id) as 'id' FROM users");
     $max_id= (integer) mysqli_fetch_array($query)['id'] + 1;
 
+    $data = $data->info;
+
     $query = $base_connect->query("INSERT INTO users (id, name, login, password, icon) VALUES ('$max_id', '$data->name', '$data->login', '$data->password', '$data->icon')");
 
   }
   if ($Type_Comand === "add_folder"){//добавление новой папки в базу
-    // запрос: http://cerver/index.php?delete_folder=2
+    // запрос: http://cerver/index.php?add_folder
     $query = $base_connect->query("SELECT MAX(id_folder) as 'id' FROM folder");
     $max_id = (integer) mysqli_fetch_array($query)['id'] + 1;
+
+    $data = $data->info;
 
     $query = $base_connect->query("INSERT INTO folder (user_Id, id_folder, name, icon, amount_card, user_name) VALUES ('$data->user_Id', '$max_id', '$data->name', '$data->icon', '$data->amount_card', '$data->user_name')");
   }
@@ -85,6 +89,8 @@ if ($_SERVER['REQUEST_METHOD'] === "GET"){
     // запрос: http://cerver/index.php?add_card
     $query = $base_connect->query("SELECT MAX(id_card) as 'id' FROM card");
     $max_id = (integer) mysqli_fetch_array($query)['id'] + 1;
+
+    $data = $data->info;
 
     $query = $base_connect->query("INSERT INTO card (id_card, id_folder, front, back, card_type, time_create) VALUES ('$max_id', '$data->id_folder', '$data->front', '$data->back', '$data->card_type', '$data->time_create')");
 
@@ -96,22 +102,37 @@ if ($_SERVER['REQUEST_METHOD'] === "GET"){
   }
   if ($Type_Comand === "change_icon"){//изменение картинки профиля пользователя
     // запрос: http://cerver/index.php?change_icon
+
+    $data = $data->info;
+
     $query = $base_connect->query("UPDATE users SET icon='$data->icon' WHERE id='$data->id'");
   }
   if ($Type_Comand === "change_login"){//изменение логина пользователя
     // запрос: http://cerver/index.php?change_login
+
+    $data = $data->info;
+
     $query = $base_connect->query("UPDATE users SET login='$data->login' WHERE id='$data->id'");
   }
   if ($Type_Comand === "change_password"){ //изменение пароля пользователя
     // запрос: http://cerver/index.php?change_password
+
+    $data = $data->info;
+
     $query = $base_connect->query("UPDATE users SET password='$data->password' WHERE id='$data->id'");
   }
   if ($Type_Comand === "change_card_front"){//изменение передней части карточки
     // запрос: http://cerver/index.php?change_card_front
+
+    $data = $data->info;
+
     $query = $base_connect->query("UPDATE card SET front='$data->front' WHERE id_card='$data->id'");
   }
   if ($Type_Comand === "change_card_back"){//изменение задней части карточки
     // запрос: http://cerver/index.php?change_card_back
+
+    $data = $data->info;
+
     $query = $base_connect->query("UPDATE card SET back='$data->back' WHERE id_card='$data->id'");
   }
 }
